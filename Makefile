@@ -1,16 +1,50 @@
-.PHONY: install test clean build publish docker-up docker-down create-db destroy-db
+.PHONY: install  clean  docker-up docker-down
 
 .ONESHELL:
 
 
+# Define working directory
+WORKDIR := $(shell pwd)/src
+
+
+# include the .env file
+include $(WORKDIR)/.env
+export $(shell sed 's/=.*//' $(WORKDIR)/.env)
+
+
+docker-up:
+	docker compose -f $(shell pwd)/docker-compose.yaml up -d
+
+
+
+docker-down:
+	@if ! docker compose -f $(shell pwd)/docker-compose.yaml ps --quiet 2>/dev/null; then \
+		echo "No containers are currently running"; \
+		exit 0; \
+	fi
+	docker compose -f $(shell pwd)/docker-compose.yaml down
+	@echo "Containers downed"
+
+
 venv:
-	uv venv
-	@echo "Virtual environment created! To activate, run:"
-	@echo "source .venv/bin/activate"
-	. .venv/bin/activate && uv sync
+	@echo "WORKDIR: $(WORKDIR). Activating virtual environment..."
+	@if [ ! -d "$(WORKDIR)/.venv" ]; then \
+		echo "Virtual environment not found in $(WORKDIR). Creating it..."; \
+		cd $(WORKDIR) && uv venv && . .venv/bin/activate && uv sync; \
+	else \
+		echo "Virtual environment already exists in $(WORKDIR). Activating..."; \
+		cd $(WORKDIR) && . .venv/bin/activate && uv sync; \
+	fi
 
 
-clean: 
+
+install: docker-up venv
+	@echo "Installing dependencies..."
+	@echo "WORKDIR: $(WORKDIR)"
+	cd $(WORKDIR) && . .venv/bin/activate && uv sync
+
+
+clean: docker-down
 	rm -rf build/
 	rm -rf dist/
 	rm -rf *.egg-info

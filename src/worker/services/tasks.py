@@ -1,10 +1,16 @@
 from worker.eval_app import celery_app
 from worker.utils.document_loader import PDFLoader, WordLoader
+from opentelemetry import trace
+
+tracer = trace.get_tracer(__name__)
 
 @celery_app.task
 def run_evaluation(document_path: str):
     print(f"Evaluating document {document_path}")
-    
+    with tracer.start_as_current_span("run_evaluation") as span:
+        # Determine file type and use appropriate loader    
+        span.set_attribute("document_path", document_path)
+
     # Determine file type and use appropriate loader
     if document_path.endswith('.pdf'):
         loader = PDFLoader(document_path)

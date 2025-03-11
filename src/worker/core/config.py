@@ -50,6 +50,9 @@ class Settings(BaseSettings):
     POSTGRES_PASSWORD: str = ""
     POSTGRES_DB: str = ""
 
+    # OpenTelemetry
+    OTLP_ENDPOINT: str = "http://localhost:4317"
+
     # Celery
     CELERY_BROKER_URL: str
     CELERY_RESULT_BACKEND: str

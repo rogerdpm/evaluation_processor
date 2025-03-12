@@ -21,5 +21,5 @@ from celery import Celery
 app = Celery('doc_evaluator_worker',
              broker='redis://10.22.98.9:6379/0',
 )
-data = ("ITSCM_DEV","495897fb-a20b-436c-9079-4fc3e0649c29") # sample data
+data = ("ITSCM_DEV","56f157ec-e18e-4948-aeef-4f03705991a6") # sample data
 app.send_task('worker.services.tasks.run_evaluation', data)

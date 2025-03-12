@@ -53,6 +53,9 @@ class Settings(BaseSettings):
     # OpenTelemetry
     OTLP_ENDPOINT: str = "http://localhost:4317"
 
+    # Eval API Base path
+    EVAL_API_BASE_PATH: str
+
     # Celery
     CELERY_BROKER_URL: str
     CELERY_RESULT_BACKEND: str

@@ -2,7 +2,7 @@ from worker.eval_app import celery_app
 from worker.utils.document_loader import PDFLoader, WordLoader
 from opentelemetry import trace
 from worker.utils.evaluate_doc import perform_evaluation
-from worker.utils.helper import download_file, get_job_info, create_temp_folder, update_job_status
+from worker.utils.helper import download_file, get_job_info, create_temp_folder, update_job_status, add_job_findings
 tracer = trace.get_tracer(__name__)
 import logging
 import os
@@ -45,8 +45,14 @@ def run_evaluation(org:str, job_id: str):
     findings = perform_evaluation(document_file_path, checklist_file_path) 
 
 
+    # add findings to the job
+    add_job_findings(org, job_id, job_info['job_name'], findings)
+
+    # complete the job
+
     update_job_status(org, job_id, job_info['job_name'], "completed")
-    print(findings)
+    
+    
 
 
 

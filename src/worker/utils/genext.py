@@ -50,6 +50,8 @@ POLLING_INTERVAL = 0.6
 API_BASE_PATH = f"https://{CONFIG[ENVIRONMENT]['HOSTNAME']}/generaid/llm/v1"
 
 
+
+
 class LlmApiModel(str, Enum):
     GPT_35_TURBO_16K = "gpt-35-turbo-16k"
     GPT_4_TURBO = "gpt-4-turbo-8k"

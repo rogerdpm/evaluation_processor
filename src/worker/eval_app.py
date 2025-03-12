@@ -11,7 +11,7 @@ from worker.core.config import settings
 
 # Set up OpenTelemetry
 resource = Resource.create({
-    "service.name": "doc_evaluator",
+    "service.name": "doc_evaluator_worker",
     "deployment.environment": settings.ENVIRONMENT  # Optional: add environment info
 })
 trace.set_tracer_provider(TracerProvider(resource=resource))
@@ -35,7 +35,7 @@ RedisInstrumentor().instrument(
 
 # Create Celery app
 celery_app = Celery(
-    "doc_evaluator",
+    "doc_evaluator_worker",
     broker=settings.CELERY_BROKER_URL,
     backend=settings.CELERY_RESULT_BACKEND,
 )
@@ -49,17 +49,17 @@ celery_app.conf.update(
     enable_utc=True,
 )
 
-# Add Celery task ID to trace
-@signals.task_prerun.connect
-def add_task_id_to_span(task_id, task, *args, **kwargs):
-    current_span = trace.get_current_span()
-    if current_span:
-        current_span.set_attribute("celery.task_id", task_id)
-        # Optional: add more task information
-        current_span.set_attribute("celery.task_name", task.name)
-        current_span.set_attribute("celery.task_routing_key", task.request.delivery_info.get('routing_key'))
+# # Add Celery task ID to trace
+# @signals.task_prerun.connect
+# def add_task_id_to_span(task_id, task, *args, **kwargs):
+#     current_span = trace.get_current_span()
+#     if current_span:
+#         current_span.set_attribute("celery.task_id", task_id)
+#         # Optional: add more task information
+#         current_span.set_attribute("celery.task_name", task.name)
+#         current_span.set_attribute("celery.task_routing_key", task.request.delivery_info.get('routing_key'))
 
-# Instrument Celery after setting up the signal
-CeleryInstrumentor().instrument()
+# # Instrument Celery after setting up the signal
+# CeleryInstrumentor().instrument()
 
 celery_app.autodiscover_tasks(['worker.services'])

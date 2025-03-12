@@ -1,0 +1,104 @@
+sections:
+  - section_text: "Document Steering Information"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "steering_information_completeness"
+        prompt: "Check if the section contains information about document steering."
+        criteria:
+          - "Must have content"
+          - "Must include version information"
+          - "Must state the range of validity"
+          - "Must indicate the status of the document"
+          - "Must list the coordinator(s)"
+          - "Must include change history with version, content of changes, written by, reviewed by, and released by with respective dates"
+
+  - section_text: "Validity of this Handbook"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "validity_of_this_handbook"
+        prompt: "Check if the section contains information about the validity of the document."
+        criteria:
+          - "Must state to what it is relevant to"
+          - "Must specify any exceptions if applicable"
+          - "Must include acceptance of the document by local IT management"
+
+  - section_text: "Distribution list"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "distribution_list_completeness"
+        prompt: "Check if the section contains a comprehensive distribution list."
+        criteria:
+          - "Must include names, roles, phone numbers, and email addresses"
+          - "Must specify functions and responsibilities"
+
+  - section_text: "Purpose of the IT Emergency Handbook"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "purpose_clarity"
+        prompt: "Check if the section clearly states the purpose of the IT Emergency Handbook."
+        criteria:
+          - "Must outline the handbook’s role in IT disaster recovery"
+          - "Must state mandatory use in case of IT Crisis/Disaster"
+          - "Must highlight coordination with IT Crisis Management Team"
+
+  - section_text: "Updates and Changes"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "updates_and_changes_procedure"
+        prompt: "Check if the section provides a clear procedure for updates and changes."
+        criteria:
+          - "Must state update frequency"
+          - "Must describe the review process"
+          - "Must outline the update publication process"
+
+  - section_text: "IT Emergency Handbook and Related Documentation"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "related_documentation_references"
+        prompt: "Check if the section references related documentation."
+        criteria:
+          - "Must list related manuals and policies"
+          - "Must provide links or locations to access related documentation"
+
+  - section_text: "IT Emergency Management"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "emergency_management_structure"
+        prompt: "Check if the section describes the IT Emergency Management structure."
+        criteria:
+          - "Must include organisational structure"
+          - "Must detail roles, tasks, and responsibilities"
+          - "Must list contact information for the IT Emergency Management Team"
+          - "Must describe the process flow and escalation strategy"
+          - "Must include procedures for dealing with used forms"
+
+  - section_text: "Scenarios and Recovery Procedures"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "scenarios_and_recovery_procedures_detail"
+        prompt: "Check if the section details scenarios and recovery procedures."
+        criteria:
+          - "Must define trigger and outage scenarios"
+          - "Must describe effects on IT operations"
+          - "Must provide detailed recovery procedures"
+          - "Must list affected applications and criticality"
+
+  - section_text: "Attachments"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "attachments_completeness"
+        prompt: "Check if the section includes all necessary attachments."
+        criteria:
+          - "Must list IT resources"
+          - "Must include a list of abbreviations"
+          - "Must provide data center layouts"
+
+  - section_text: "TEMPLATE Steering Information"
+    type: "document_headings"
+    validation_rules:
+      - rule_id: "template_steering_information"
+        prompt: "Check if the section contains template steering information."
+        criteria:
+          - "Must include version and status of the template"
+          - "Must list changes and updates with details"
+          - "Must include coordination details"

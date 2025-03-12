@@ -58,6 +58,15 @@ class Settings(BaseSettings):
     CELERY_RESULT_BACKEND: str
 
 
+    # GENEXT API Configuration.
+    GENEXT_APP_ID_PROD: str
+    GENEXT_API_KEY_PROD: str
+    GENEXT_API_SECRET_PROD: str
+    CLIENT_ID_PROD: str
+    CLIENT_SECRET_PROD: str
+    TENANT_ID_PROD: str
+
+
     @computed_field  # type: ignore[prop-decorator]
     @property
     def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
